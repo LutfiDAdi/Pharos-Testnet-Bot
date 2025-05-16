@@ -53,7 +53,8 @@ function edit_env() {
         nano "Pharos-Testnet-Bot/.env"
     else
         echo "Membuat file .env baru..."
-        echo "PVT_KEY=masukkan_private_key_anda_disini" > "Pharos-Testnet-Bot/.env"
+        echo "PRIVATE_KEY_1=masukkan_private_key_anda_disini" > "Pharos-Testnet-Bot/.env"
+        echo "PRIVATE_KEY_2=masukkan_private_key_anda_disini" > "Pharos-Testnet-Bot/.env"
         nano "Pharos-Testnet-Bot/.env"
     fi
     
@@ -67,7 +68,7 @@ function edit_proxies() {
         nano "Pharos-Testnet-Bot/proxies.txt"
     else
         echo "Membuat file proxies.txt baru..."
-        echo "# Tambahkan proxy Anda dengan format: http://user:pass@ip:port" > "Pharos-Testnet-Bot/proxies.txt"
+        echo "# Tambahkan proxy Anda dengan format: http://user:pass@ip:port 1 Baris 1 Proxy" > "Pharos-Testnet-Bot/proxies.txt"
         nano "Pharos-Testnet-Bot/proxies.txt"
     fi
     
