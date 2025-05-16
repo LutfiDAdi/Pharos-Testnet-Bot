@@ -18,17 +18,19 @@ Bot otomatis untuk berinteraksi dengan Pharos Testnet, melakukan swap, transfer,
 - Wallet Pharos Testnet dengan private key
 
 1. Jalankan langsung:
-curl -sO https://raw.githubusercontent.com/LutfiDAdi/Pharos-Testnet-Bot/main/setup_pharos.sh
-1. Contoh file .env:
-  
+   ```
+   curl -sO https://raw.githubusercontent.com/LutfiDAdi/Pharos-Testnet-Bot/main/setup_pharos.sh
+   ```
+3. Contoh file .env:
+   ```
    PRIVATE_KEY_1=private_key_pertama_anda_disini
    PRIVATE_KEY_2=private_key_kedua_anda_disini
-   
-2. (Opsional) Contoh proxies.txt (satu per baris):
-  
+   ```
+4. (Opsional) Contoh proxies.txt (satu per baris):
+   ```
    http://user:pass@ip:port
    socks5://user:pass@ip:port
-   
+   ```
 ## Catatan Penting ⚠️
 
 1. Bot ini HANYA untuk penggunaan TESTNET
