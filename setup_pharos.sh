@@ -8,119 +8,118 @@ echo "  Join Channel : https://t.me/EverlexAirdrop"
 echo "=============================================="
 echo ""
 
-function tampilkan_menu() {
-    clear
-    echo "===================================="
-    echo "      MANAJER BOT PHAROS TESTNET     "
-    echo "===================================="
-    echo "1. Pasang dan Setup Bot Pharos"
-    echo "2. Edit file .env (private key)"
-    echo "3. Edit proxies.txt"
-    echo "4. Mulai Bot Pharos"
-    echo "5. Lihat sesi bot yang berjalan"
-    echo "6. Hapus Bot Pharos"
-    echo "7. Keluar"
-    echo "===================================="
-    echo -n "Silakan pilih opsi [1-7]: "
-}
-
-function pasang_bot() {
-    echo "Memasang Bot Pharos Testnet..."
+# Fungsi untuk install bot
+install_bot() {
+    echo "Memulai instalasi Pharos Testnet Bot..."
+    echo
     
-    # Clone repository dengan filter
+    # Clone repository
     git clone --filter=blob:none --no-checkout https://github.com/LutfiDAdi/Pharos-Testnet-Bot
-    cd Pharos-Testnet-Bot || exit
-    
-    # Setup sparse checkout
+    cd Pharos-Testnet-Bot
     git sparse-checkout init --no-cone
     git sparse-checkout set --no-cone "/*" "!/setup_pharos.sh"
     git checkout main
     
-    # Pasang dependensi
-    sudo apt update && sudo apt install -y nodejs npm
-    npm install -g yarn
+    # Install dependencies
+    echo "Menginstal dependensi..."
+    sudo apt update && sudo apt upgrade -y
+    sudo apt install -y nodejs
+    sudo npm install -g yarn
     npm install dotenv ethers https-proxy-agent random-useragent axios
     
-    echo "Pemasangan selesai!"
+    echo
+    echo "Instalasi selesai!"
     cd ..
-    read -p "Tekan [Enter] untuk kembali ke menu..."
 }
 
-function edit_env() {
-    echo "Mengedit file .env..."
+# Fungsi untuk konfigurasi .env
+setup_env() {
+    echo "Konfigurasi file .env"
+    echo "Format yang digunakan:"
+    echo "PRIVATE_KEY_1=private_key_pertama_anda_disini"
+    echo "PRIVATE_KEY_2=private_key_kedua_anda_disini"
+    echo
     
     if [ -f "Pharos-Testnet-Bot/.env" ]; then
-        nano "Pharos-Testnet-Bot/.env"
+        echo "File .env sudah ada. Ingin melihat isinya? (y/n)"
+        read view_env
+        if [ "$view_env" = "y" ]; then
+            nano Pharos-Testnet-Bot/.env
+        fi
     else
-        echo "Membuat file .env baru..."
-        echo "PRIVATE_KEY_1=masukkan_private_key_anda_disini" > "Pharos-Testnet-Bot/.env"
-        echo "PRIVATE_KEY_2=masukkan_private_key_anda_disini" > "Pharos-Testnet-Bot/.env"
-        nano "Pharos-Testnet-Bot/.env"
+        nano Pharos-Testnet-Bot/.env
     fi
-    
-    read -p "Tekan [Enter] untuk kembali ke menu..."
 }
 
-function edit_proxies() {
-    echo "Mengedit proxies.txt..."
+# Fungsi untuk konfigurasi proxy
+setup_proxy() {
+    echo "Konfigurasi file proxies.txt"
+    echo "Format yang digunakan:"
+    echo "http://user:pass@ip:port"
+    echo "socks5://user:pass@ip:port"
+    echo
     
     if [ -f "Pharos-Testnet-Bot/proxies.txt" ]; then
-        nano "Pharos-Testnet-Bot/proxies.txt"
+        echo "File proxies.txt sudah ada. Ingin melihat isinya? (y/n)"
+        read view_proxy
+        if [ "$view_proxy" = "y" ]; then
+            nano Pharos-Testnet-Bot/proxies.txt
+        fi
     else
-        echo "Membuat file proxies.txt baru..."
-        echo "# Tambahkan proxy Anda dengan format: http://user:pass@ip:port 1 Baris 1 Proxy" > "Pharos-Testnet-Bot/proxies.txt"
-        nano "Pharos-Testnet-Bot/proxies.txt"
+        nano Pharos-Testnet-Bot/proxies.txt
     fi
-    
-    read -p "Tekan [Enter] untuk kembali ke menu..."
 }
 
-function mulai_bot() {
-    echo "Memulai Bot Pharos di sesi screen..."
-    
-    if [ ! -d "Pharos-Testnet-Bot" ]; then
-        echo "Direktori Pharos-Testnet-Bot tidak ditemukan. Silakan pasang terlebih dahulu."
-        read -p "Tekan [Enter] untuk kembali ke menu..."
-        return
-    fi
-    
-    screen -S Pharos -dm bash -c "cd Pharos-Testnet-Bot && node main.js"
-    
-    echo "Bot telah dimulai di sesi screen. Gunakan opsi 5 untuk melihat sesi."
-    read -p "Tekan [Enter] untuk kembali ke menu..."
+# Fungsi untuk menjalankan bot
+run_bot() {
+    echo "Menjalankan Pharos Testnet Bot..."
+    cd Pharos-Testnet-Bot
+    screen -S Pharos -dm node main.js
+    echo "Bot berjalan di screen 'Pharos'"
+    echo "Gunakan 'screen -r Pharos' untuk melihat output"
+    echo "Tekan Ctrl+A+D untuk keluar dari screen"
+    cd ..
 }
 
-function lihat_sesi() {
-    echo "Mengakses sesi screen Bot Pharos..."
-    echo "Catatan: Tekan Ctrl+A lalu D untuk keluar tanpa menghentikan bot"
-    sleep 2
-    screen -r Pharos
+# Fungsi untuk menghentikan bot
+stop_bot() {
+    echo "Menghentikan Pharos Testnet Bot..."
+    screen -XS Pharos quit
+    echo "Bot telah dihentikan"
 }
 
-function hapus_bot() {
-    echo "Menghapus Bot Pharos Testnet..."
-    if [ -d "Pharos-Testnet-Bot" ]; then
-        rm -rf Pharos-Testnet-Bot
-        echo "Direktori Pharos-Testnet-Bot telah dihapus."
-    else
-        echo "Direktori Pharos-Testnet-Bot tidak ditemukan."
-    fi
-    read -p "Tekan [Enter] untuk kembali ke menu..."
+# Fungsi untuk uninstall bot
+uninstall_bot() {
+    echo "Menghapus Pharos Testnet Bot..."
+    screen -XS Pharos quit
+    rm -rf Pharos-Testnet-Bot
+    echo "Bot telah dihapus"
 }
 
-# Loop utama program
+# Menu utama
 while true; do
-    tampilkan_menu
-    read -r pilihan
-    
-    case $pilihan in
-        1) pasang_bot ;;
-        2) edit_env ;;
-        3) edit_proxies ;;
-        4) mulai_bot ;;
-        5) lihat_sesi ;;
-        6) hapus_bot ;;
-        7) echo "Keluar..."; exit 0 ;;
-        *) echo "Opsi tidak valid. Silakan coba lagi."; sleep 2 ;;
+    echo
+    echo "PILIH TINDAKAN:"
+    echo "1) Install Bot"
+    echo "2) Konfigurasi .env"
+    echo "3) Konfigurasi Proxy"
+    echo "4) Jalankan Bot"
+    echo "5) Hentikan Bot"
+    echo "6) Lihat Output Bot"
+    echo "7) Hapus Bot"
+    echo "8) Keluar"
+    echo
+    read -p "Masukkan pilihan (1-8): " choice
+
+    case $choice in
+        1) install_bot ;;
+        2) setup_env ;;
+        3) setup_proxy ;;
+        4) run_bot ;;
+        5) stop_bot ;;
+        6) screen -r Pharos ;;
+        7) uninstall_bot ;;
+        8) exit 0 ;;
+        *) echo "Pilihan tidak valid!" ;;
     esac
 done
