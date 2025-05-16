@@ -21,6 +21,11 @@ Bot otomatis untuk berinteraksi dengan Pharos Testnet, melakukan swap, transfer,
    ```
    curl -sO https://raw.githubusercontent.com/LutfiDAdi/Pharos-Testnet-Bot/main/setup_pharos.sh
    ```
+2. Jalankan
+   ```
+   chmod +x setup_pharos.sh
+   ./setup_pharos.sh
+   ```
 3. Contoh file .env:
    ```
    PRIVATE_KEY_1=private_key_pertama_anda_disini
