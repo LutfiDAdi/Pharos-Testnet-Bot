@@ -2,7 +2,7 @@
 
 Bot otomatis untuk berinteraksi dengan Pharos Testnet, melakukan swap, transfer, klaim faucet, dan check-in harian untuk berpotensi memenuhi syarat airdrop.
 
-## Fitur ✨
+## Fitur 
 
 - Swap Otomatis: Melakukan swap acak antara token WPHRS dan USDC
 - Transfer PHRS: Mengirim jumlah kecil PHRS ke alamat acak
@@ -11,7 +11,7 @@ Bot otomatis untuk berinteraksi dengan Pharos Testnet, melakukan swap, transfer,
 - Dukungan Proxy: Menggilir proxy untuk setiap operasi (jika disediakan)
 - Dukungan Multi-wallet: Memproses beberapa wallet secara berurutan
 
-## Prasyarat 📋
+## Prasyarat 
 
 - Node.js (versi 18 atau lebih tinggi)
 - npm atau yarn
@@ -31,7 +31,7 @@ Bot otomatis untuk berinteraksi dengan Pharos Testnet, melakukan swap, transfer,
    http://user:pass@ip:port
    socks5://user:pass@ip:port
    ```
-## Catatan Penting ⚠️
+## Catatan Penting 
 
 1. Bot ini HANYA untuk penggunaan TESTNET
 2. Jangan pernah menggunakan private key mainnet
@@ -39,11 +39,11 @@ Bot otomatis untuk berinteraksi dengan Pharos Testnet, melakukan swap, transfer,
 4. Semua transaksi menggunakan gas price 0 (fitur testnet)
 5. Bot memiliki jeda acak antara operasi
 
-## Dukungan 💬
+## Dukungan 
 
 Untuk masalah atau pertanyaan, silakan buka issue di GitHub.
 
-## Penafian ⚠️
+## Penafian 
 
 Perangkat lunak ini disediakan "sebagaimana adanya" tanpa jaminan. Gunakan dengan risiko sendiri. Pengembang tidak bertanggung jawab atas kerugian atau masalah yang disebabkan oleh penggunaan bot ini.
 
